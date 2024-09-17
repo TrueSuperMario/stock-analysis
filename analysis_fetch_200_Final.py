@@ -3,8 +3,8 @@ import time
 from datetime import datetime
 import pytz
 
-# Your OpenAI API Key
-API_KEY = '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'
+# Fetch the API key from environment variables
+API_KEY = os.getenv('OPENAI_API_KEY')
 
 # List of 200 companies and their stock tickers
 companies = [
