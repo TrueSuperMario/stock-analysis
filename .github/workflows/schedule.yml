@@ -1,0 +1,36 @@
+name: Run Stock Analysis
+
+on:
+  schedule:
+    # Runs daily at 9am AEST (which is 11pm UTC)
+    - cron: '0 23 * * *'
+
+jobs:
+  run-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Add any additional dependencies if needed
+
+    - name: Run Analysis Script
+      env:
+        API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        python analysis_fetch_200_Final.py
+        today=$(date +%u)
+        if [ "$today" -eq 1 ]; then
+          mv *.html Basic/
+          mv *.html "Basic Pro"/
+        fi
+        mv *.html Premium/
