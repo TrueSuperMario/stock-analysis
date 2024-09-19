@@ -3,6 +3,7 @@ import requests
 import time
 from datetime import datetime
 import pytz
+from dotenv import load_dotenv
 
 # Fetch the API key from environment variables
 API_KEY = os.getenv('OPENAI_API_KEY')
