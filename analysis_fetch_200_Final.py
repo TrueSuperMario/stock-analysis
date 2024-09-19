@@ -259,9 +259,10 @@ Conclude with a summary paragraph that provides an overall assessment based on t
 There should be no sign off and do not include references."""
 
     headers = {
-        'Authorization': f'Bearer {API_KEY}',
+        'Authorization': f'Bearer {API_KEY}',  # The API key is injected here
         'Content-Type': 'application/json'
     }
+    
     data = {
         'model': 'gpt-4o-mini',  # Model specified by you
         'messages': [{'role': 'user', 'content': prompt}],
