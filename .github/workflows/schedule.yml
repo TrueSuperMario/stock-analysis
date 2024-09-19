@@ -2,8 +2,9 @@ name: Run Stock Analysis
 
 on:
   schedule:
-    # Runs daily at midday AEST (which is 2am UTC)
-    - cron: '0 2 * * *'  # This runs at 2:00 AM UTC, which is 12:00 PM AEST
+    # Runs daily at midday AEDT (which is 1am UTC during daylight saving time)
+    - cron: '0 1 * * *'  # 1:00 AM UTC for 12:00 PM AEDT
+  workflow_dispatch:  # This adds the ability to manually trigger the workflow
 
 jobs:
   run-analysis:
