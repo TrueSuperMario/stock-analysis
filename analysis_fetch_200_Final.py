@@ -1,27 +1,21 @@
 import os
-import sys
 import requests
 import time
 from datetime import datetime
 import pytz
+import re
 
 # Fetch the API key from environment variables
 API_KEY = os.getenv('OPENAI')
 
-# Get the target directory (default is the current directory)
-output_dir = sys.argv[1] if len(sys.argv) > 1 else './'
-
-# Create the directory if it doesn't exist
-os.makedirs(output_dir, exist_ok=True)
+# Output directory for HTML files (set to Premium by default)
+output_dir = "Premium"
 
 # List of 200 companies and their stock tickers
 companies = [
     ("Ramsay Health Care Ltd", "RHC"),
     ("Wesfarmers Ltd", "WES"),
-    ("Ampol Ltd", "ALD"),
-    ("Dicker Data Ltd", "DDR"),
-    ("CSL Ltd", "CSL"),
-    # [REDACTED] -- continue with the remaining companies
+    # Add all other companies here
 ]
 
 # Function to fetch analysis for a given company
@@ -76,7 +70,7 @@ There should be no sign off and do not include references."""
     }
     
     data = {
-        'model': 'gpt-4o-mini',  # Model specified by you
+        'model': 'gpt-4',  # Adjust the model as needed
         'messages': [{'role': 'user', 'content': prompt}],
         'max_tokens': 1500
     }
@@ -101,7 +95,6 @@ There should be no sign off and do not include references."""
 
 # Function to parse the analysis text into structured sections with correct HTML formatting
 def parse_analysis(text):
-    # Define sections with initial empty strings
     sections = {
         'Current Performance': '',
         'Valuation Metrics': '',
@@ -113,48 +106,32 @@ def parse_analysis(text):
         'Summary': ''
     }
 
-    # Define keywords to split the sections based on the structure provided
     keywords = list(sections.keys())
     current_section = None
 
-    # Split the text by sections and format appropriately
     for line in text.split('\n'):
         line = line.strip()
         if not line:
-            continue  # Skip empty lines
+            continue
 
-        # Check if the line starts with a section header
         if any(keyword in line for keyword in keywords):
             for keyword in keywords:
                 if keyword in line:
                     current_section = keyword
-                    if keyword != 'Summary':  # Avoid adding duplicate 'Summary' heading
-                        sections[current_section] += f'<h3>{current_section}</h3>\n'  # Add section header
+                    if keyword != 'Summary':
+                        sections[current_section] += f'<h3>{current_section}</h3>\n'
                     break
         elif current_section:
-            # Check if the line is a bullet point formatted with "- **Title**:"
-            if line.startswith('**') and line.endswith('**'):
-                bullet_title = line.strip('**')
-                sections[current_section] += f'<h4>{bullet_title}</h4>\n'  # Format bullet point as <h4>
-            elif line.startswith('**') and ':' in line:
-                bullet_title, bullet_content = line.split(':', 1)
-                sections[current_section] += f'<h4>{bullet_title.strip("**").strip()}</h4>\n<p>{bullet_content.strip()}</p>\n'
-            else:
-                sections[current_section] += f'<p>{line}</p>\n'  # For regular paragraph content
+            sections[current_section] += f'<p>{line}</p>\n'
 
     return sections
-
-import re  # Import re for replacing spaces and special characters
 
 # Function to save the analysis as an HTML file for each company with formatted sections
 def save_analysis_as_html(content, company_name, stock):
     sections = parse_analysis(content)
-    
-    # Format the company name to be used in the filename: lowercase, replace spaces with underscores, and remove special characters
     formatted_company_name = re.sub(r'[^a-zA-Z0-9]', '_', company_name.lower())
-
-    # Set the filename to be the formatted company name
     filename = os.path.join(output_dir, f"{formatted_company_name}.html")
+    
     formatted_content = f"""
 <!DOCTYPE html>
 <html lang="en">
@@ -172,7 +149,7 @@ def save_analysis_as_html(content, company_name, stock):
     {sections['Dividend Analysis']}
     {sections['Market and Sector Conditions']}
     {sections['General Sentiment Analysis']}
-    {sections['Summary']}  <!-- Relying on the parsed content to add the Summary heading if needed -->
+    {sections['Summary']}
 
 </body>
 </html>
