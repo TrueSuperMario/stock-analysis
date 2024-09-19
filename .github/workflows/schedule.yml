@@ -2,8 +2,8 @@ name: Run Stock Analysis
 
 on:
   schedule:
-    # Schedule run (e.g., daily at 10am UTC)
-    - cron: '0 10 * * *'
+    # Runs daily at 9am AEST (which is 11pm UTC)
+    - cron: '0 23 * * *'
   workflow_dispatch:  # This allows manual triggering of the workflow
 
 jobs:
