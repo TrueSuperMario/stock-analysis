@@ -6,6 +6,7 @@ import pytz
 
 # Fetch the API key from environment variables
 API_KEY = os.getenv('OPENAI_API_KEY')
+print(f"API_KEY: {API_KEY}")  # Log the API key to ensure it's being retrieved
 
 # List of 200 companies and their stock tickers
 companies = [
