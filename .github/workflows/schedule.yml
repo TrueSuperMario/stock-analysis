@@ -2,32 +2,28 @@ name: Run Stock Analysis
 
 on:
   schedule:
-    # Runs daily at midday AEST (which is 2am UTC)
-    - cron: '0 2 * * *'  # Adjust this if you want a different schedule
+    # Schedule run (e.g., daily at 10am UTC)
+    - cron: '0 10 * * *'
 
 jobs:
   run-analysis:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.x'
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
 
-    - name: Install dependencies from requirements.txt
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Run Analysis Script
-      env:
-        OPENAI: ${{ secrets.OPENAI }}  # Use the GitHub secret OPENAI for your API key
-      run: |
-        python analysis_fetch_200_Final.py
-        mv *.html Basic/
-        mv *.html "Basic Pro/"
-        mv *.html Premium/
+      - name: Run Analysis Script
+        env:
+          OPENAI: ${{ secrets.OPENAI }}  # Pass the secret 'OPENAI' to the script
+        run: python analysis_fetch_200_Final.py
