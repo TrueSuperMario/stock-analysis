@@ -4,6 +4,7 @@ on:
   schedule:
     # Runs daily at midday AEST (which is 2am UTC)
     - cron: '0 2 * * *'
+  workflow_dispatch: # Allows you to manually trigger the workflow from GitHub
 
 jobs:
   run-analysis:
@@ -26,7 +27,6 @@ jobs:
     - name: Verify installed packages
       run: pip freeze
 
-    # This step is added to verify if the API key is being loaded properly
     - name: Check OpenAI Key
       run: echo $OPENAI_API_KEY
       env:
