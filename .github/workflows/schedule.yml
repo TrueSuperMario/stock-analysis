@@ -2,9 +2,9 @@ name: Run Stock Analysis
 
 on:
   schedule:
-    # Runs Monday to Friday at 9am AEST (which is 11pm UTC, Monday to Friday)
+    # Runs Monday to Friday at 9am AEST (which is 11pm UTC)
     - cron: '0 23 * * 1-5'
-  workflow_dispatch:  # This allows manual triggering of the workflow
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   run-analysis:
@@ -24,17 +24,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create directories (ensure they exist)
+      - name: Create directories
         run: |
           mkdir -p Basic "Basic Pro" Premium
 
-      - name: Run Analysis Script and save to Premium
+      - name: Run Analysis Script
         env:
-          OPENAI: ${{ secrets.OPENAI }}  # Pass the secret 'OPENAI' to the script
-        run: python analysis_fetch_200_Final.py Premium/  # Pass Premium folder as output directory
+          OPENAI: ${{ secrets.OPENAI }}
+        run: python analysis_fetch_200_Final.py
 
-      - name: Copy files daily to Basic and Basic Pro
+      - name: Copy HTML files to other directories
         run: |
-          # Copy all HTML files from Premium to Basic and Basic Pro daily
+          # Copy all HTML files to Basic, Basic Pro, and Premium daily
           cp Premium/*.html Basic/
           cp Premium/*.html "Basic Pro"/
