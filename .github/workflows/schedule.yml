@@ -24,18 +24,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create directories
+      - name: Create directories (ensure they exist)
         run: |
           mkdir -p Basic "Basic Pro" Premium
 
-      - name: Run Analysis Script
+      - name: Run Analysis Script and save to Premium
         env:
           OPENAI: ${{ secrets.OPENAI }}  # Pass the secret 'OPENAI' to the script
-        run: python analysis_fetch_200_Final.py
+        run: python analysis_fetch_200_Final.py Premium/  # Pass Premium folder as output directory
 
-      - name: Move files to Basic, Basic Pro, and Premium daily
+      - name: Copy files daily to Basic and Basic Pro
         run: |
-          # Copy all HTML files to Basic, Basic Pro, and Premium folders daily
-          cp *.html Basic/
-          cp *.html "Basic Pro"/
-          cp *.html Premium/
+          # Copy all HTML files from Premium to Basic and Basic Pro daily
+          cp Premium/*.html Basic/
+          cp Premium/*.html "Basic Pro"/
