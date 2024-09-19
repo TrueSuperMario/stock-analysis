@@ -18,20 +18,19 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Check Python version and paths  # Print Python version and paths to verify
+    - name: Check Python version and paths  # Check Python setup
       run: |
         which python
         python --version
         which pip
         pip --version
-        python -m site  # To check the Python environment paths
 
-    - name: Install dependencies
+    - name: Install dependencies  # Install pip and requests explicitly
       run: |
         python -m pip install --upgrade pip
-        python -m pip install requests  # Ensure requests is installed
+        python -m pip install requests
 
-    - name: Verify installed packages  # List all installed packages to verify 'requests'
+    - name: Verify installed packages  # Ensure requests is installed
       run: pip freeze
 
     - name: Run Analysis Script
