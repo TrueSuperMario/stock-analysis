@@ -35,11 +35,19 @@ jobs:
 
       - name: Move files daily to Premium, and on Mondays to Basic and Basic Pro
         run: |
-          # Move all HTML files to the root directory (optional step if needed)
-          mv *.html ./
+          # Create directories if they don't exist
+          mkdir -p Basic "Basic Pro" Premium
           
           # Copy all HTML files to Premium folder every day
           cp *.html Premium/
+          
+          # If it's Monday (day 1 of the week), copy files to Basic and Basic Pro
+          today=$(date +%u)
+          if [ "$today" -eq 1 ]; then
+            cp *.html Basic/
+            cp *.html "Basic Pro"/
+          fi
+
           
           # If it's Monday (day 1 of the week), copy files to Basic and Basic Pro
           today=$(date +%u)
