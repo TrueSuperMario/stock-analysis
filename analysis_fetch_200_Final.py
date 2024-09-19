@@ -4,6 +4,11 @@ import time
 from datetime import datetime
 import pytz
 
+# Create directories if they don't exist
+os.makedirs('Basic', exist_ok=True)
+os.makedirs('Basic Pro', exist_ok=True)
+os.makedirs('Premium', exist_ok=True)
+
 # Fetch the API key from environment variables
 API_KEY = os.getenv('OPENAI')  # This will pull the 'OPENAI' secret
 
