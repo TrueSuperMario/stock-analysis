@@ -27,4 +27,16 @@ jobs:
       - name: Run Analysis Script
         env:
           OPENAI: ${{ secrets.OPENAI }}  # Pass the secret 'OPENAI' to the script
-        run: python analysis_fetch_200_Final.py
+        run: |
+          mkdir -p Basic "Basic Pro" Premium  # Ensure the directories exist
+          python analysis_fetch_200_Final.py
+          mv *.html Basic/
+          mv *.html "Basic Pro"/
+          mv *.html Premium/
+
+      - name: List generated files and folders (for debugging)
+        run: |
+          ls -al
+          ls -al Basic/
+          ls -al "Basic Pro"/
+          ls -al Premium/
