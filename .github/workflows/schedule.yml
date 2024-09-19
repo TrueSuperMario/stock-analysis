@@ -3,7 +3,7 @@ name: Run Stock Analysis
 on:
   schedule:
     # Runs daily at midday AEST (which is 2am UTC)
-    - cron: '0 2 * * *'
+    - cron: '0 2 * * *'  # Adjust this if you want a different schedule
 
 jobs:
   run-analysis:
@@ -18,14 +18,19 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install dependencies
+    - name: Install dependencies from requirements.txt
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Verify installed packages
+      run: pip freeze
+
     - name: Run Analysis Script
+      env:
+        OPENAI: ${{ secrets.OPENAI }}  # Ensure this secret is set correctly in GitHub Secrets
       run: |
         python analysis_fetch_200_Final.py
         mv *.html Basic/
-        mv *.html "Basic Pro"/
+        mv *.html "Basic Pro/"
         mv *.html Premium/
