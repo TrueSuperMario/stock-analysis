@@ -23,12 +23,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Verify installed packages
-      run: pip freeze
-
     - name: Run Analysis Script
       env:
-        OPENAI: ${{ secrets.OPENAI }}  # Ensure this secret is set correctly in GitHub Secrets
+        OPENAI: ${{ secrets.OPENAI }}  # Use the GitHub secret OPENAI for your API key
       run: |
         python analysis_fetch_200_Final.py
         mv *.html Basic/
