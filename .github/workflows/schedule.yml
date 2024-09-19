@@ -21,15 +21,23 @@ jobs:
     - name: Check Python version  # This will help us debug if Python is set up correctly
       run: python --version
 
-    - name: Install dependencies
+    - name: Create and activate virtual environment  # Create and activate a virtual environment
       run: |
+        python -m venv venv
+        source venv/bin/activate
         python -m pip install --upgrade pip
-        python -m pip install requests  # Ensure the requests package is installed
+        pip install requests
 
-    - name: Run Analysis Script
+    - name: Verify installed packages in virtual environment  # Ensure requests is installed in the venv
+      run: |
+        source venv/bin/activate
+        pip freeze
+
+    - name: Run Analysis Script in virtual environment
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
+        source venv/bin/activate
         python analysis_fetch_200_Final.py
         # Move the generated HTML files into the appropriate folders
         mv *.html Basic/
