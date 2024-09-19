@@ -5,7 +5,7 @@ from datetime import datetime
 import pytz
 
 # Fetch the API key from environment variables
-API_KEY = os.getenv('OPENAI')
+API_KEY = os.getenv('OPENAI')  # This will pull the 'OPENAI' secret
 
 # List of 200 companies and their stock tickers
 companies = [
