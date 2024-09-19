@@ -11,33 +11,28 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3  # Updated to v3 for latest version
 
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v3  # Updated to v3
       with:
         python-version: '3.x'
 
-    - name: Check Python version  # This will help us debug if Python is set up correctly
+    - name: Check Python version  # Check Python setup
       run: python --version
 
-    - name: Create and activate virtual environment  # Create and activate a virtual environment
+    - name: Install dependencies
       run: |
-        python -m venv venv
-        source venv/bin/activate
         python -m pip install --upgrade pip
-        pip install requests
+        python -m pip install requests  # Explicitly install requests
 
-    - name: Verify installed packages in virtual environment  # Ensure requests is installed in the venv
-      run: |
-        source venv/bin/activate
-        pip freeze
+    - name: Verify installed packages  # List all installed packages to verify 'requests'
+      run: pip freeze
 
-    - name: Run Analysis Script in virtual environment
+    - name: Run Analysis Script
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
-        source venv/bin/activate
         python analysis_fetch_200_Final.py
         # Move the generated HTML files into the appropriate folders
         mv *.html Basic/
