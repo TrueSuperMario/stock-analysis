@@ -3,14 +3,9 @@ import requests
 import time
 from datetime import datetime
 import pytz
-from dotenv import load_dotenv  # Import dotenv
-
-# Load environment variables from the .env file
-load_dotenv()
 
 # Fetch the API key from environment variables
-API_KEY = os.getenv('OPENAI_API_KEY')
-print(f"API_KEY: {API_KEY}")  # For debugging
+API_KEY = os.getenv('OPENAI')
 
 # List of 200 companies and their stock tickers
 companies = [
