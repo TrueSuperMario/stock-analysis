@@ -10,6 +10,7 @@ load_dotenv()
 
 # Fetch the API key from environment variables
 API_KEY = os.getenv('OPENAI_API_KEY')
+print(f"API_KEY: {API_KEY}")  # For debugging
 
 # List of 200 companies and their stock tickers
 companies = [
