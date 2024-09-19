@@ -11,18 +11,20 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3  # Updated to v3
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v3  # Updated to v3
+      uses: actions/setup-python@v3
       with:
         python-version: '3.x'
+
+    - name: Check Python version  # This will help us debug if Python is set up correctly
+      run: python --version
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests  # Explicitly install requests
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi  # Install from requirements.txt if it exists
+        python -m pip install requests  # Ensure the requests package is installed
 
     - name: Run Analysis Script
       env:
