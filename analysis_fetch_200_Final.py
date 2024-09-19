@@ -1,22 +1,28 @@
 import os
+import sys
 import requests
 import time
 from datetime import datetime
 import pytz
 
-# Create directories if they don't exist
-os.makedirs('Basic', exist_ok=True)
-os.makedirs('Basic Pro', exist_ok=True)
-os.makedirs('Premium', exist_ok=True)
-
 # Fetch the API key from environment variables
-API_KEY = os.getenv('OPENAI')  # This will pull the 'OPENAI' secret
+API_KEY = os.getenv('OPENAI')
+
+# Get the target directory (default is the current directory)
+output_dir = sys.argv[1] if len(sys.argv) > 1 else './'
+
+# Create the directory if it doesn't exist
+os.makedirs(output_dir, exist_ok=True)
 
 # List of 200 companies and their stock tickers
 companies = [
     ("Ramsay Health Care Ltd", "RHC"),
     ("Wesfarmers Ltd", "WES"),
-    ]
+    ("Ampol Ltd", "ALD"),
+    ("Dicker Data Ltd", "DDR"),
+    ("CSL Ltd", "CSL"),
+    # [REDACTED] -- continue with the remaining companies
+]
 
 # Function to fetch analysis for a given company
 def fetch_stock_analysis(stock, company_name):
@@ -148,7 +154,7 @@ def save_analysis_as_html(content, company_name, stock):
     formatted_company_name = re.sub(r'[^a-zA-Z0-9]', '_', company_name.lower())
 
     # Set the filename to be the formatted company name
-    filename = f"{formatted_company_name}.html"  # Append date to filename
+    filename = os.path.join(output_dir, f"{formatted_company_name}.html")
     formatted_content = f"""
 <!DOCTYPE html>
 <html lang="en">
