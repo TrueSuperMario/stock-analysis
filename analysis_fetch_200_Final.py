@@ -8,11 +8,11 @@ import re  # For replacing spaces and special characters
 # Fetch the API key from environment variables
 API_KEY = os.getenv('OPENAI')
 
-# List of 200 companies and their stock tickers
+# List of companies (shortened)
 companies = [
     ("Ramsay Health Care Ltd", "RHC"),
     ("Wesfarmers Ltd", "WES"),
-    # Add remaining companies
+    # More companies here
 ]
 
 # Function to fetch analysis for a given company
@@ -34,9 +34,9 @@ def fetch_stock_analysis(stock, company_name):
         'Authorization': f'Bearer {API_KEY}',
         'Content-Type': 'application/json'
     }
-    
+
     data = {
-        'model': 'gpt-4o-mini',  # Model specified by you
+        'model': 'gpt-4o-mini',
         'messages': [{'role': 'user', 'content': prompt}],
         'max_tokens': 1500
     }
