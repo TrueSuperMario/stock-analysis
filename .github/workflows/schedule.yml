@@ -2,9 +2,9 @@ name: Run Stock Analysis
 
 on:
   schedule:
-    # Runs Monday to Friday at 9am AEST (which is 11pm UTC)
+    # Runs Monday to Friday at 9am AEST (which is 11pm UTC, Monday to Friday)
     - cron: '0 23 * * 1-5'
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch:  # This allows manual triggering of the workflow
 
 jobs:
   run-analysis:
@@ -41,3 +41,11 @@ jobs:
           # Copy all HTML files to Basic, Basic Pro, and Premium daily
           cp Premium/*.html Basic/
           cp Premium/*.html "Basic Pro"/
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "Update HTML files"
+          git push
