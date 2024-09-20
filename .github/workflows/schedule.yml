@@ -10,6 +10,9 @@ jobs:
   run-analysis:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write  # Ensure the runner can write to the repo
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
