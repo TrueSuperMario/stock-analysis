@@ -273,6 +273,7 @@ def parse_analysis(text):
         if not line:
             continue
 
+        # Check for section headers (e.g., Current Performance, Valuation Metrics)
         if any(keyword in line for keyword in keywords):
             for keyword in keywords:
                 if keyword in line:
@@ -280,7 +281,16 @@ def parse_analysis(text):
                     sections[current_section] += f'<h3>{current_section}</h3>\n'
                     break
         elif current_section:
-            sections[current_section] += f'<p>{line}</p>\n'
+            # If line starts with a bullet point (e.g., "- **Strong Buy**: 5 analysts")
+            if line.startswith("- "):
+                sections[current_section] += f'<li>{line[2:]}</li>\n'  # Format as <li> without leading "- "
+            else:
+                sections[current_section] += f'<p>{line}</p>\n'
+
+    # Wrap bullet points in <ul> tags for each section
+    for section in sections:
+        if '<li>' in sections[section]:
+            sections[section] = f"<ul>\n{sections[section]}</ul>\n"
 
     return sections
 
