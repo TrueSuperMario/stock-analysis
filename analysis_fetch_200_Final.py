@@ -225,7 +225,85 @@ def fetch_stock_analysis(stock, company_name):
     - Dividend Analysis
     - Market and Sector Conditions
     - General Sentiment Analysis
-    Conclude with a 'Summary' section."""
+    Conclude with a 'Summary' section.
+    
+    The format it should following is as per the below example you have previously produced:
+    "Heading: Current Performance
+
+    bullet point: Revenue and Earnings Growth:
+    Mercury NZ has experienced a 5% year-on-year revenue growth, driven by higher electricity demand and increased production capacity from renewable sources. Earnings growth has been more modest at 3%, reflecting higher operational costs, particularly in infrastructure and network maintenance.
+
+    bullet point: Profit Margins:
+    The company’s net profit margin stands at 10%, which is relatively solid given the capital-intensive nature of the energy sector. While rising costs have impacted profitability slightly, Mercury’s focus on renewable energy helps sustain margins over the long term.
+
+    bullet point: Earnings Per Share (EPS):
+    EPS is currently at $0.72, representing a 2% increase from the previous year. This modest growth reflects Mercury’s steady performance in the renewable energy sector and its ability to maintain consistent profitability.
+
+    bullet point: Return on Equity (ROE):
+    Mercury’s ROE is 12%, indicating strong utilisation of shareholder equity to generate profits. This is considered healthy for a utility company, particularly one focused on renewable energy investments.
+
+    Heading: Valuation Metrics
+
+    bullet point: Price-to-Earnings (P/E) Ratio:
+    The current P/E ratio for Mercury NZ is 19, suggesting the stock is moderately valued relative to its earnings potential. This valuation reflects the market’s confidence in the company’s renewable energy portfolio and stable cash flows.
+
+    bullet point: P/E Ratio compared to the industry average:
+    Mercury’s P/E ratio is slightly above the utilities industry average of 17, indicating a premium valuation driven by the company’s focus on sustainable energy and long-term growth prospects.
+
+    Heading: Analyst Recommendations
+
+    bullet point: Consensus Rating:
+    Analysts have a 'Hold' consensus on Mercury NZ, noting the company’s stable performance and strong market position but also recognising limited short-term growth opportunities due to the mature state of the New Zealand energy market.
+
+    bullet point: Price Targets:
+    The average analyst price target is $6.50, with a range from $6.00 to $7.00. This suggests limited upside potential from current trading levels, reflecting expectations of steady but unspectacular growth.
+
+    Heading: Insider Activity
+
+    bullet point: Recent Transactions:
+    Recent insider activity shows minor buying by executives, suggesting confidence in the company’s long-term strategy and future prospects. There has been no significant insider selling, which indicates stable sentiment among management.
+
+    bullet point: Overall Sentiment:
+    Insider sentiment remains neutral to positive, with recent transactions showing management's belief in Mercury’s ability to continue delivering stable returns to shareholders.
+
+    Heading: Dividend Analysis
+
+    bullet point: Dividend Yield:
+    Mercury NZ offers a dividend yield of 4.2%, which is attractive for income-focused investors, particularly in the stable utilities sector. The yield is supported by the company’s consistent cash flows from renewable energy generation.
+
+    bullet point: Dividend Payout Ratio:
+    The payout ratio is 75%, indicating that Mercury returns a significant portion of its profits to shareholders while retaining enough capital for infrastructure investments and renewable energy projects.
+
+    bullet point: Dividend History:
+    Mercury has a solid history of dividend payments, with consistent distributions that have been gradually increased over time. This reflects the company’s strong cash flow and commitment to returning value to shareholders.
+
+    heading: Market and Sector Conditions
+
+    bullet point: Relevant Sector Trends:
+    The renewable energy sector continues to experience growth, driven by increasing demand for clean energy and government incentives to reduce carbon emissions. Mercury is well-positioned within this sector, with its focus on hydroelectric, geothermal, and wind power.
+
+    bullet point: Economic Indicators:
+    Economic conditions remain supportive of the energy sector, with stable demand for electricity and ongoing investment in renewable infrastructure. However, inflationary pressures on costs and potential supply chain disruptions are key risks.
+
+    bullet point: Regulatory Environment:
+    The regulatory landscape for renewable energy remains favourable, with strong government support for the transition to sustainable energy. Mercury benefits from regulatory frameworks that incentivise renewable energy production and provide stability in electricity pricing.
+
+    Heading: General Sentiment Analysis
+
+    bullet point: Media and News Sentiment:
+    Media coverage of Mercury NZ is generally positive, with a focus on its leadership in renewable energy generation and its ongoing investments in expanding its clean energy portfolio. The company’s commitment to sustainability is frequently highlighted as a key strength.
+
+    bullet point: Social Media and Public Sentiment:
+    Public sentiment on social media is largely favourable, with customers and stakeholders praising Mercury’s renewable energy efforts and reliability. There are occasional mentions of rising energy prices, but these concerns are typical across the sector.
+
+    bullet point: Analyst Sentiment:
+    Analyst sentiment is cautiously optimistic, reflecting confidence in Mercury’s long-term strategy and market position. However, some analysts remain cautious about the short-term impact of rising operational costs and the maturity of the New Zealand energy market.
+
+    Heading: Summary:
+    Mercury NZ Ltd is well-positioned in the renewable energy sector, benefiting from consistent revenue growth and a strong focus on sustainability. The company’s solid financial metrics, including a healthy ROE and attractive dividend yield, make it a reliable investment for income-focused investors. While the stock’s premium valuation reflects its renewable energy focus, analysts maintain a cautious outlook due to limited short-term growth opportunities and rising operational costs. Overall, Mercury’s commitment to clean energy and its stable market presence provide a solid foundation for long-term performance, making it an appealing option in the utilities sector."
+
+This is exactly how it should be done every single time.
+"""
 
     headers = {
         'Authorization': f'Bearer {API_KEY}',
