@@ -147,12 +147,15 @@ def parse_analysis(text):
     keywords = list(sections.keys())
     current_section = None
 
+    # Replace any instances of '**' in the text
+    text = text.replace('**', '')
+
     for line in text.split('\n'):
         line = line.strip()
         if not line:
             continue
 
-        # Check for section headers (e.g., Current Performance, Valuation Metrics)
+        # Check if the line starts with a section header
         if any(keyword in line for keyword in keywords):
             for keyword in keywords:
                 if keyword in line:
@@ -160,16 +163,14 @@ def parse_analysis(text):
                     sections[current_section] += f'<h3>{current_section}</h3>\n'
                     break
         elif current_section:
-            # Replace **bold text** format with <strong>HTML tag</strong>
-            if line.startswith('**') and ':' in line:
-                bullet_point_title, bullet_point_content = line.split(':', 1)
-                bullet_point_title = bullet_point_title.strip('**').strip()
-                bullet_point_content = bullet_point_content.strip()
-                sections[current_section] += f'<p><strong>{bullet_point_title}:</strong> {bullet_point_content}</p>\n'
+            # Format bullet points and headings
+            if line.startswith('- '):
+                sections[current_section] += f'<p>{line[2:].strip()}</p>\n'  # Remove the '- ' from bullet points
             else:
                 sections[current_section] += f'<p>{line}</p>\n'
 
     return sections
+
 
 # Function to save the analysis as an HTML file
 def save_analysis_as_html(content, company_name, stock):
