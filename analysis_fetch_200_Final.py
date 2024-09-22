@@ -359,6 +359,9 @@ def parse_analysis(text):
                     sections[current_section] += f'<h3>{current_section}</h3>\n'
                     break
         elif current_section:
+            # Replace **bold text** format with <strong>HTML tag</strong>
+            line = line.replace('**', '').replace(':', ': <strong>')  # Replacing ** with <strong>
+            
             # If line starts with a bullet point (e.g., "- **Strong Buy**: 5 analysts")
             if line.startswith("- "):
                 sections[current_section] += f'<li>{line[2:]}</li>\n'  # Format as <li> without leading "- "
