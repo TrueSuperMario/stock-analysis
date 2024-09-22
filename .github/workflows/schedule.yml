@@ -2,8 +2,8 @@ name: Run Stock Analysis
 
 on:
   schedule:
-    # Runs Monday to Friday at 9am AEST (which is 11pm UTC, Monday to Friday)
-    - cron: '0 23 * * 1-5'
+    # Runs Monday to Friday at 8am AEST (which is 10pm UTC, Monday to Friday)
+    - cron: '0 22 * * 1-5'
   workflow_dispatch:  # This allows manual triggering of the workflow
 
 jobs:
@@ -36,9 +36,10 @@ jobs:
           OPENAI: ${{ secrets.OPENAI }}
         run: python analysis_fetch_200_Final.py
 
-      - name: Copy HTML files to other directories
+      # Conditionally copy files to Basic and Basic Pro on Mondays
+      - name: Copy HTML files to Basic and Basic Pro (Monday Only)
+        if: github.event.schedule == '0 22 * * 1'  # Checks if it's Monday
         run: |
-          # Copy all HTML files to Basic, Basic Pro, and Premium daily
           cp Premium/*.html Basic/
           cp Premium/*.html "Basic Pro"/
 
