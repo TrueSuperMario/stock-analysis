@@ -311,7 +311,7 @@ This is exactly how it should be done every single time.
     }
 
     data = {
-        'model': 'gpt-4o-mini',
+        'model': 'gpt-4o',
         'messages': [{'role': 'user', 'content': prompt}],
         'max_tokens': 1500
     }
