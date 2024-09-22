@@ -147,7 +147,7 @@ def parse_analysis(text):
     keywords = list(sections.keys())
     current_section = None
 
-    # Replace any instances of '**' in the text
+    # Replace any instances of '**' in the text with appropriate HTML <strong> tags
     text = text.replace('**', '')
 
     for line in text.split('\n'):
@@ -163,13 +163,19 @@ def parse_analysis(text):
                     sections[current_section] += f'<h3>{current_section}</h3>\n'
                     break
         elif current_section:
-            # Format bullet points and headings
-            if line.startswith('- '):
+            # Format subheadings (e.g., "Revenue and Earnings Growth:") using <strong> tags
+            if ": " in line:
+                # Split line by ': ' to apply <strong> to the first part
+                subheading, content = line.split(': ', 1)
+                sections[current_section] += f'<p><strong>{subheading}:</strong> {content}</p>\n'
+            elif line.startswith('- '):
+                # Handle bullet points without **, ensuring they're wrapped correctly
                 sections[current_section] += f'<p>{line[2:].strip()}</p>\n'  # Remove the '- ' from bullet points
             else:
                 sections[current_section] += f'<p>{line}</p>\n'
 
     return sections
+
 
 
 # Function to save the analysis as an HTML file
