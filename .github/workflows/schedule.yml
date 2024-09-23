@@ -36,9 +36,8 @@ jobs:
           OPENAI: ${{ secrets.OPENAI }}
         run: python analysis_fetch_200_Final.py
 
-      # Conditionally copy files to Basic and Basic Pro on Mondays
-      - name: Copy HTML files to Basic and Basic Pro (Monday Only)
-        if: startsWith(github.event.schedule, '0 22 * * 1')  # Checks if it's Monday
+      # Copy HTML files to Basic, Basic Pro, and Premium every day
+      - name: Copy HTML files to Basic and Basic Pro
         run: |
           cp Premium/*.html Basic/
           cp Premium/*.html "Basic Pro"/
