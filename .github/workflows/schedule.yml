@@ -36,9 +36,14 @@ jobs:
           OPENAI: ${{ secrets.OPENAI }}
         run: python analysis_fetch_200_Final.py
 
-      # Copy HTML files to Basic and Basic Pro on Monday AEST only
+      # Get the current day of the week in AEST (UTC+10)
+      - name: Get current AEST day
+        id: date
+        run: echo "::set-output name=day::$(TZ='Australia/Sydney' date +%A)"
+
+      # Copy HTML files to Basic and Basic Pro on Monday AEST only (both scheduled and manual)
       - name: Copy HTML files to Basic and Basic Pro (Monday AEST only)
-        if: github.event.schedule == '0 22 * * 0'  # Run on Sunday 10pm UTC, which is Monday 8am AEST
+        if: steps.date.outputs.day == 'Monday'
         run: |
           cp Premium/*.html Basic/
           cp Premium/*.html "Basic Pro"/
