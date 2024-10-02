@@ -359,11 +359,13 @@ def parse_analysis(text):
                     sections[current_section] += f'<h3>{current_section}</h3>\n'
                     break
         elif current_section:
-            # Remove the ** formatting and add custom bullet points
+            # Remove the ** formatting and add a single bullet point with a hyphen
             line = line.replace('**', '').strip()
             if ":" in line:
                 title, content = line.split(":", 1)
-                sections[current_section] += f'<strong>- {title.strip()}:</strong>\n<p>{content.strip()}</p>\n'
+                # Ensure no extra hyphen is added
+                title = title.strip().lstrip('-')  # Remove any leading hyphen from the title
+                sections[current_section] += f'<strong>- {title}:</strong>\n<p>{content.strip()}</p>\n'
             else:
                 sections[current_section] += f'<p>{line}</p>\n'
 
