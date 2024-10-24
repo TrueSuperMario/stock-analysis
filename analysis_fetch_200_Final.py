@@ -6,7 +6,7 @@ import pytz
 import re  # For replacing spaces and special characters
 
 # Fetch the API key from environment variables
-API_KEY = os.getenv('OPENAI')
+API_KEY = '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'
 
 # List of companies (shortened)
 companies = [
