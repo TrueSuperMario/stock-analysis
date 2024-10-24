@@ -23,7 +23,13 @@ jobs:
           python-version: '3.x'
 
       - name: Test API Key  # Test if the API key is correctly passed
-        run: echo "OPENAI Key: ${{ secrets.OPENAI }}"
+        run: |
+          if [ -z "${{ secrets.OPENAI }}" ]; then 
+            echo "OPENAI key is missing!"; 
+            exit 1; 
+          else 
+            echo "OPENAI key is set."; 
+          fi
 
       - name: Install dependencies
         run: |
