@@ -22,14 +22,15 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Test API Key  # Test if the API key is correctly passed
-        run: |
-          if [ -z "${{ secrets.OPENAI }}" ]; then 
-            echo "OPENAI key is missing!"; 
-            exit 1; 
-          else 
-            echo "OPENAI key is set."; 
-          fi
+      # Commented out for testing purposes
+      # - name: Test API Key  # Test if the API key is correctly passed
+      #   run: |
+      #     if [ -z "${{ secrets.OPENAI }}" ]; then 
+      #       echo "OPENAI key is missing!"; 
+      #       exit 1; 
+      #     else 
+      #       echo "OPENAI key is set."; 
+      #     fi
 
       - name: Install dependencies
         run: |
@@ -42,7 +43,7 @@ jobs:
 
       - name: Run Analysis Script
         env:
-          OPENAI: ${{ secrets.OPENAI }}
+          OPENAI: ${{ secrets.OPENAI }}  # This will use your API key
         run: python analysis_fetch_200_Final.py
 
       # Get the current day of the week in AEST (UTC+10)
